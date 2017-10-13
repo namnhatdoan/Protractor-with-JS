@@ -1,0 +1,23 @@
+np{
+  "name": "practice_npm_install",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.31",
+    "jasmine-spec-reporter": "^4.2.1",
+    "protractor": "^5.1.2",
+    "protractor-accessibility-plugin": "^0.3.0",
+    "protractor-axe-report-plugin": "^1.1.0",
+    "protractor-console-plugin": "^0.1.1",
+    "protractor-jasmine2-html-reporter": "0.0.7",
+    "protractor-timeline-plugin": "^0.2.0"
+  },
+  "devDependencies": {}
+}
