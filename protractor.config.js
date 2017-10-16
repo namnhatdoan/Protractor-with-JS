@@ -34,6 +34,7 @@ exports.config = {
   // Spec patterns are relative to this config file
   //specs: ['./js/specs/check.e2e-spec.js' ],
   specs: ['./specs/spec.js'],
+  allScriptsTimeout: 20000,
   //exclude: ['./js/specs/check.e2e-spec.js'],
 
   // suites: {
@@ -149,9 +150,9 @@ exports.config = {
     //global.all = require('./all.js');
   },
   jasmineNodeOpts: {
-    // defaultTimeoutInterval: 60000,
-    defaultTimeoutInterval: 10000,
-    showTiming: true,
+    //defaultTimeoutInterval: 60000,
+    //defaultTimeoutInterval: 10000,
+    showTiming: false,
     print: function () { }
   },
 

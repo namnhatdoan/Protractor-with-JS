@@ -1,5 +1,6 @@
 const by = require('protractor').by;
 const Categories = require('./Categories').Categories;
+
 class AccessoriesPage extends Categories{
     constructor(){
         this.initElement();

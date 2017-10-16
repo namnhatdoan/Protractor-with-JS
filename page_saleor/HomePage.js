@@ -4,6 +4,8 @@ const LogInPage = require("./LogInPage").LogInPage;
 const TopPanel = require("./TopPanel").TopPanel;
 const by = require('protractor').by;
 const element = require('protractor').element;
+const EC = require('protractor').ExpectedConditions;
+const BooksPage = require('./BooksPage').BooksPage;
 
 class HomePage {
     constructor() {
@@ -22,6 +24,14 @@ class HomePage {
     openLoginPage() {
         this.topPanel.openLoginPage();
         return new LogInPage();
+    }
+
+    openCategory(category){
+        console.log("open Category..." + category);
+        element(this.menu).element(by.xpath(".//a[contains(.,'" + category + "')]")).click();
+        browser.wait(EC.visibilityOf(element(by.css(".product-filters"))));
+        //console.log("open Category...");
+        return new BooksPage();
     }
 }
 
@@ -45,12 +55,15 @@ class HomePageValidation {
      * 
      * @param {*} expectedList : list of string contains name of the category
      */
-    async verifyListCategory(expectedList) {
+    verifyListCategory(expectedList) {
         if (Array.isArray(expectedList)) {
-            expectedList.array.forEach(async function (element) {
-                var item = await element(this.menu).element(by.xpath("//a[.='" + element + "'"));
-                expect(item.isDisplayed()).toBe(true);
-            }, this);
+            expectedList.forEach((expectedItem) => {
+                var item = element(this.menu).element(by.xpath(".//a[contains(.,'" + expectedItem + "')]"));
+                //console.log(expectedItem);
+                //console.log(item.getAttribute("innerText"));
+                //expect(await item.isDisplayed()).toBe(true);
+                browser.wait(item.isDisplayed(), 3000);
+            });
         }
     }
 

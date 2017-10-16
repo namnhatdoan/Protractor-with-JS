@@ -33,6 +33,10 @@ class TopPanel{
     getNumberOfSelectedProduct(){
         return element(this.numOfSelectedProduct).getAttribute('innerText');
     }
+
+    openCategories(){
+        
+    }
 }
 
 exports.TopPanel = TopPanel;

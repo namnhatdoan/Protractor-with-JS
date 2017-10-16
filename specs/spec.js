@@ -1,7 +1,7 @@
 // // import {RegisterPage} from './RegisterPage';
 const Register = require('../page_saleor/RegisterPage').RegisterPage;
 const HomePage = require("../page_saleor/HomePage").HomePage;
-const HomePageValidation = require("../page_saleor/HomePage").HomePageValidation'
+const HomePageValidation = require("../page_saleor/HomePage").HomePageValidation;
 const protractor = require('protractor');
 var browser = protractor.browser;
 
@@ -10,7 +10,7 @@ var baseURL = "http://192.168.74.230/";
 // Prepare Data
 
 
-describe("Register", function () {
+xdescribe("Register", function () {
     beforeEach(function () {
         browser.waitForAngularEnabled(false);
         browser.get(baseURL);
@@ -37,27 +37,27 @@ xdescribe("Set admin privilege for ", function(){
     });
 })
 
-describe("Saleor -", function(){
+describe("Saleor -",function(){
     beforeEach(function(){
         browser.waitForAngularEnabled(false);
         browser.get(baseURL);
         this.homePage = new HomePage();
-        this.homePageValidate = new HomePageValidation()
-        //this.loginPage = homePage.openLoginPage();
-        //this.loginPage.logIn("email1@email.com", "123");
+        this.homePageValidate = new HomePageValidation();
     });
 
-    it("Scenario 1", function(){
+    it("Scenario 1",function(){
         // Verify there is enough 4 categories
         this.homePageValidate.verifyListCategory(["Accessories", "Books", "Apparel", "Groceries"]);
         // Verify 0 product in Cart
-        
+
         // Open Book category
-
+        booksPage = this.homePage.openCategory("Books");
+        
         // Filter English and price between 18-20
-
+        booksPage.filter.setLanguage(["English"]);
+        booksPage.filter.setPriceRange(0,10);
         // Verify all prices of returned book has prices in selected range
-
+        booksPage.verifyPriceRangeFilter(0,10);
     });
 
     it("Scenario 2", function(){

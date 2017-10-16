@@ -1,21 +1,21 @@
 const by = require('protractor').by;
 
-class AccessoriesPage {
+class Categories {
     constructor(){
         this.initElement();
     }
 
     initElement(){
-        this.filter = new Filter();
+        //this.filter = new Filter();
         this.btnLoadMore = element(by.buttonText("Load more"));
         
     }
 
-    async getCheapestProductElement(){
-        var listProducts = await this.getProducts();
+    getCheapestProductElement(){
+        var listProducts = this.getProductElements();
         var cheapestPrice = "$0";
-        listProducts.array.forEach((el) => {
-            let price = await el.element(by.xpath(".//*[@itemprop='price']")).getAttribute('innerText');
+        listProducts.forEach((el) => {
+            let price = el.element(by.xpath(".//*[@itemprop='price']")).getAttribute('innerText');
             if (cheapestPrice == "$0") {
                 cheapestPrice = price;
             }
@@ -27,8 +27,21 @@ class AccessoriesPage {
         return this.getProduct({price: cheapestPrice});
     }
 
-    async getProductElements(){
-       return await element.all(by.css(".product-list"));
+    getProducts(){
+        var listElem = element.all(by.css(".product-list"));
+        var count = 0;
+        var listProduct =  listElem.map(function(elem) {
+            //console.log("elem " + count);
+            var price = elem.element(by.xpath(".//*[@itemprop='price']")).getAttribute("innerText");
+            var title = elem.element(by.xpath(".//*[@title]")).getAttribute("innerText");
+            price = price.replace("$", "");
+            return new Product(title, price);
+        });
+        return listProduct;
+    }
+
+    getProductElements(){
+       return element.all(by.css(".product-list"));
     }
 
     /**
@@ -43,6 +56,13 @@ class AccessoriesPage {
         return element(by.xpath(xPath));
     }
 
+}
+
+class Product {
+    constructor(title, price){
+        this.title = title;
+        this.price = price;
+    }
 }
 
 exports.Categories = Categories;
