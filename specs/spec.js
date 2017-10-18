@@ -1,7 +1,10 @@
 // // import {RegisterPage} from './RegisterPage';
-const Register = require('../page_saleor/RegisterPage').RegisterPage;
-const HomePage = require("../page_saleor/HomePage").HomePage;
-const HomePageValidation = require("../page_saleor/HomePage").HomePageValidation;
+const pageObj = require("../page_saleor/index");
+const Register = pageObj.RegisterPage;
+const HomePage = pageObj.HomePage;
+const HomePageValidation = pageObj.HomePageValidation;
+const BookDetailPage = pageObj.BookDetailPage;
+
 const protractor = require('protractor');
 var browser = protractor.browser;
 
@@ -43,13 +46,14 @@ describe("Saleor -",function(){
         browser.get(baseURL);
         this.homePage = new HomePage();
         this.homePageValidate = new HomePageValidation();
+        this.bookDetailPage = new BookDetailPage();
     });
 
-    it("Scenario 1",function(){
+    it("Scenario 1: Filtering",function(){
         // Verify there is enough 4 categories
         this.homePageValidate.verifyListCategory(["Accessories", "Books", "Apparel", "Groceries"]);
         // Verify 0 product in Cart
-
+        expect(this.homePage.topPanel.getNumberOfSelectedProduct()).toEqual(0);
         // Open Book category
         booksPage = this.homePage.openCategory("Books");
         
@@ -60,19 +64,23 @@ describe("Saleor -",function(){
         booksPage.verifyPriceRangeFilter(0,10);
     });
 
-    it("Scenario 2", function(){
+    xit("Scenario 2: Buy the cheapest book", function(){
         // Open Book category
-
+        booksPage = this.homePage.openCategory("Books");
         // Select the cheapest book
-
+        var book = booksPage.getCheapestProductElement();
+        var price = booksPage.getCheapestPrice();
+        book.click();
         // Verify the price is equal with previous page
-
+        expect(this.bookDetailPage.getPrice()).toEqual(price);
         // Add to cart
-
+        quantity = 1;
+        this.bookDetailPage.addToCart(quantity);
         // Verify number of seleted product in cart icon is 1
-
+        var numOfProduct = this.bookDetailPage.topPanel.getNumberOfSelectedProduct();
+        expect(numOfProduct).toEqual(quantity);
         // Check out
-
+        this.bookDetailPage.topPanel.cart.checkOut();
         // Verify register link is displayed
 
         // Click continue to register

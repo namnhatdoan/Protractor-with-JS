@@ -1,4 +1,4 @@
-import {by} from 'protractor';
+const by = require("protractor");
 
 class CheckoutLoginPage {
     constructor(){
@@ -13,8 +13,8 @@ class CheckoutLoginPage {
         // Login Form element ...
     }
 
-    async continueAsNewCustomer(){
-        await element(this.btnContinue).click()
+    continueAsNewCustomer(){
+        element(this.btnContinue).click()
         // Waiting ...
     }
 }

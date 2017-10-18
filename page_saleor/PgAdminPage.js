@@ -45,4 +45,4 @@ class LogInPage{
     }
 }
 
-exports.PgAdmin = PgAdmin;
+exports.PgAdminPage = PgAdmin;

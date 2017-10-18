@@ -1,11 +1,15 @@
 //import {element, by, browser} from 'protractor';
-const RegisterPage = require("./RegisterPage").RegisterPage;
-const LogInPage = require("./LogInPage").LogInPage;
-const TopPanel = require("./TopPanel").TopPanel;
+//const RegisterPage = require("./RegisterPage").RegisterPage;
+const pageObject = require("./index");
+const RegisterPage = pageObject.RegisterPage;
+const LogInPage = pageObject.LogInPage;
+const TopPanel = pageObject.TopPanel;
+const BooksPage = pageObject.BooksPage;
+
 const by = require('protractor').by;
 const element = require('protractor').element;
 const EC = require('protractor').ExpectedConditions;
-const BooksPage = require('./BooksPage').BooksPage;
+
 
 class HomePage {
     constructor() {
@@ -16,6 +20,7 @@ class HomePage {
         this.topPanel = new TopPanel();
         this.menu = by.className("navbar-nav");
     }
+
     openRegisterPage() {
         this.topPanel.openRegisterPage();
         return new RegisterPage();

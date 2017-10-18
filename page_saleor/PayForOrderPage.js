@@ -13,3 +13,4 @@ class PayForOder {
 
 }
 
+exports.PayForOrderPage = PayForOder;

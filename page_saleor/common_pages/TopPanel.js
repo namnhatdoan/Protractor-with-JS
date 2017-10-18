@@ -1,9 +1,12 @@
 const by = require('protractor').by;
 const element = require('protractor').element;
 const EC = require('protractor').ExpectedConditions;
+const protractor = require('protractor');
+const browser = protractor.browser;
 class TopPanel{
     constructor(){
         this.initElementLocator();
+        this.cart = new Cart();
     }
 
     initElementLocator(){
@@ -36,6 +39,27 @@ class TopPanel{
 
     openCategories(){
         
+    }
+}
+
+class Cart {
+    constructor(){
+        this.icoCart = by.className("cart__icon");
+        this.cartDropdownBlock = by.className("cart-dropdown");
+        this.btnCheckOut = by.xpath("//*[contains(concat(' ',@class,' '),' cart-dropdown ')]//a[.='Checkout']");
+    }
+
+    checkOut(){
+        var btnCheckOutElement = element(this.btnCheckOut);
+        if (btnCheckOutElement.isDisplayed()){
+            btnCheckOutElement.click();
+        }
+        else {
+            browser.actions().
+            mouseMove(element(this.icoCart).getWebElement()).
+            click(btnCheckOutElement.getWebElement()).
+            perform();
+        }
     }
 }
 

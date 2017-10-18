@@ -1,4 +1,4 @@
-import {by} from 'protractor';
+const by = require("protractor").by;
 
 class CartPage {
     constructor(){
@@ -9,23 +9,23 @@ class CartPage {
     //     this.products = by.className("cart__line");
     // }
 
-    async getProductElement(productName){
+    getProductElement(productName){
         var xpath = "//*[contains(concat(' ',@class,' '), ' cart__line ') and .//p[contains(., '" + productName + "')]]";
-        return await element(by.xpath(xpath));
+        return element(by.xpath(xpath));
     }
 
-    async getQuantity(productName){
-        var productElem = await getProductElement(productName);
-        return await productElem.element(by.xpath(".//*[@id='id_quantity']")).getAttribute("value");
+    getQuantity(productName){
+        var productElem = getProductElement(productName);
+        return productElem.element(by.xpath(".//*[@id='id_quantity']")).getAttribute("value");
     }
 
-    async setQuantity(productName, quantity){
-        var productElem = await getProductElement(productName);
+    setQuantity(productName, quantity){
+        var productElem = getProductElement(productName);
         productElem.element(by.xpath(".//*[@id='id_quantity']")).getAttribute
     }
 
-    async checkOut(){
-        await element(by.xpath("//*[contains(concat(' ',@class,' '), ' cart ')]//a[contains(.,'Checkout')]"));
+    checkOut(){
+        element(by.xpath("//*[contains(concat(' ',@class,' '), ' cart ')]//a[contains(.,'Checkout')]"));
     }
 }
 

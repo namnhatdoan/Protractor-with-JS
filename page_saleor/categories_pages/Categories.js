@@ -1,8 +1,10 @@
 const by = require('protractor').by;
+const TopPanel = require("../index").TopPanel;
 
 class Categories {
     constructor(){
         this.initElement();
+        this.topPanel = new TopPanel();
     }
 
     initElement(){
@@ -12,6 +14,11 @@ class Categories {
     }
 
     getCheapestProductElement(){
+        var cheapestPrice = this.getCheapestPrice(); 
+        return this.getProductElement({price: cheapestPrice});
+    }
+
+    getCheapestPrice(){
         var listProducts = this.getProductElements();
         var cheapestPrice = "$0";
         listProducts.forEach((el) => {
@@ -23,9 +30,7 @@ class Categories {
                 cheapestPrice = price;
             }
         });
-        
-        return this.getProduct({price: cheapestPrice});
-    }
+    }    
 
     getProducts(){
         var listElem = element.all(by.css(".product-list"));
